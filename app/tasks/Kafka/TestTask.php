@@ -15,7 +15,7 @@ class TestTask extends Task
         $config = ProducerConfig::getInstance();
         $config->setMetadataRefreshIntervalMs(10000);
         $config->setMetadataBrokerList(env('KAFKA_BROKER_LIST'));
-        $config->setBrokerVersion('0.9.0.1');
+        $config->setBrokerVersion('1.0.0');
         $config->setRequiredAck(1);
         $config->setIsAsyn(false);
         $config->setProduceInterval(500);
@@ -33,7 +33,7 @@ class TestTask extends Task
         // $logger = $factory->getLogger('kafka');
         // $producer->setLogger($logger);
         $producer->success(function ($result) {
-            dump($result);
+            dump('success:' . $result);
         });
         $producer->error(function ($errorCode) {
             dump('error:' . $errorCode);
@@ -47,7 +47,7 @@ class TestTask extends Task
         $config->setMetadataRefreshIntervalMs(10000);
         $config->setMetadataBrokerList(env('KAFKA_BROKER_LIST'));
         $config->setGroupId('test');
-        $config->setBrokerVersion('0.9.0.1');
+        $config->setBrokerVersion('1.0.0');
         $config->setTopics(array('test'));
         $consumer = new \Kafka\Consumer();
         $consumer->start(function ($topic, $part, $message) {
